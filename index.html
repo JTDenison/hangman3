@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <title>Hangman</title>
     <!-- used bootstrap for reset !-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/style.css">
 </head>
 
 <body>
     <div class="wrapper">
         <h1>Hangman</h1>
-        <p>Use the alphabet below to guess the word </p>
+        <p>Use the alphabet below to guess the word  </p> <!--console for answers !-->
     </div>
     <div class="wrapper">
         <div id="buttons">
@@ -70,16 +70,16 @@
 
         // category selector
         var selectCat = function() {
-            if (chosenCategory === categories[0]) {
-                catagoryName.innerHTML = "The Chosen Category Is Video Games";
-            } else if (chosenCategory === categories[1]) {
-                catagoryName.innerHTML = "The Chosen Category Is Films";
-            } else if (chosenCategory === categories[2]) {
-                catagoryName.innerHTML = "The Chosen Category Is Sports Teams";
+                if (chosenCategory === categories[0]) {
+                    catagoryName.innerHTML = "The Chosen Category Is Video Games";
+                } else if (chosenCategory === categories[1]) {
+                    catagoryName.innerHTML = "The Chosen Category Is Movies";
+                } else if (chosenCategory === categories[2]) {
+                    catagoryName.innerHTML = "The Chosen Category Is Sports Teams";
+                }
             }
-        }
             // tried to change background images for each category
-        /*  function backgroundImage(){
+            /*  function backgroundImage(){
                 if (chosenCategory === categories[0]) {
                     document.style.backgroundImage="url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR5Fj7aDlL8yXSXBmXADZCPnwTOQQMeNkhIRYxlMyAk6gsQhX18)";
                 } else if (chosenCategory === categories[1]){
@@ -148,7 +148,8 @@
             }
         }
 
-        /* Keyboard click function          never got to work :(  
+        /* Keyboard click function          
+        never got to work :(  
 
     check = function () {
         var letters = {65:"a", 66:"b", 67:"c", 68:"d", 69:"e", 70:"f", 71:"g", 72:"h", 73:"i", 74:"j",
@@ -164,14 +165,20 @@
         // game
         play = function() {
             categories = [
-                ["fallout", "overwatch", "mario", "skyrim", "monopoly", "javascript"],
-                ["fightclub", "zootopia", "gladiator", "tangled", "blow"],
-                ["dallas", "cowboys", "sooners", "magic", "capitols"]
+                ["fallout", "overwatch", "mario", "risk", "monopoly", "javascript"],
+                ["fightclub", "zootopia", "gladiator", "tangled", "blow", "javascript"],
+                ["dallas", "cowboys", "sooners", "magic", "capitals", "javascript"]
             ];
 
             chosenCategory = categories[Math.floor(Math.random() * categories.length)];
             word = chosenCategory[Math.floor(Math.random() * chosenCategory.length)];
-            //word = word.replace(/\s/g, "-"); // attempted to .replace string replace all - with space// where \s = empty space and      /g = global reference// didnt work :( 
+     //     word = word.replace(/\s/g, "-"); 
+
+            // attempted to .replace string replace all "-"" with a space
+            // where \s = empty space and  /g = global reference
+            // didnt work :( 
+
+
             console.log(word);
             buttons();
 
