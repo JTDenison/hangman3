@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hangman</title>
+    <!-- used bootstrap for reset !-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Hangman</h1>
+        <p>Use the alphabet below to guess the word </p>
+    </div>
+    <div class="wrapper">
+        <div id="buttons">
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p id="catagoryName"></p>
+        <div id="hold">
+        </div>
+        <p id="mylives"></p>
+        <div class="container">
+            <button id="reset">Play again</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+    window.onload = function() {
+
+        var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+            'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+            't', 'u', 'v', 'w', 'x', 'y', 'z'
+        ];
+
+        var word; // Selected word
+        var guess; // guess
+        var categories; // Array topics
+        var chosenCategory; //  catagories
+        var guesses = []; // guesses
+        var lives; // Lives
+        var counter; //correct guesses
+        var space; // spaces in word '-'
+
+        // Get elements
+        var showLives = document.getElementById("mylives");
+        var showCatagory = document.getElementById("scatagory");
+
+
+        // create alphabet ul
+        var buttons = function() {
+                myButtons = document.getElementById('buttons');
+                letters = document.createElement('ul');
+
+                for (var i = 0; i < alphabet.length; i++) {
+                    letters.id = 'alphabet';
+                    list = document.createElement('li');
+                    list.id = 'letter';
+                    list.innerHTML = alphabet[i];
+                    check();
+                    myButtons.appendChild(letters);
+                    letters.appendChild(list);
+                }
+            }
+            //end turning alphabit into buttons
+
+        // category selector
+        var selectCat = function() {
+            if (chosenCategory === categories[0]) {
+                catagoryName.innerHTML = "The Chosen Category Is Video Games";
+            } else if (chosenCategory === categories[1]) {
+                catagoryName.innerHTML = "The Chosen Category Is Films";
+            } else if (chosenCategory === categories[2]) {
+                catagoryName.innerHTML = "The Chosen Category Is Sports Teams";
+            }
+        }
+            // tried to change background images for each category
+        /*  function backgroundImage(){
+                if (chosenCategory === categories[0]) {
+                    document.style.backgroundImage="url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR5Fj7aDlL8yXSXBmXADZCPnwTOQQMeNkhIRYxlMyAk6gsQhX18)";
+                } else if (chosenCategory === categories[1]){
+                    document.style.backgroundImage="url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS_tnEvpVj00McgkA4P0N70RAtq6wmRxAIxm9FO7EsU2_EYJovLWg)";
+                } else if (chosenCategory === categories[2]){
+                    document.style.backgroundImage="url(http://www.salemhigh.com/newstaff/departments/pe/images/backgrounds/sports-background.jpg)"; 
+                }
+    }}; */
+
+        // Create guesses ul
+        result = function() {
+            wordHolder = document.getElementById('hold');
+            correct = document.createElement('ul');
+
+            for (var i = 0; i < word.length; i++) {
+                correct.setAttribute('id', 'my-word');
+                guess = document.createElement('li');
+                guess.setAttribute('class', 'guess');
+                if (word[i] === "-") {
+                    guess.innerHTML = "-";
+                    space = 1;
+                } else {
+                    guess.innerHTML = "_";
+                }
+
+                guesses.push(guess);
+                wordHolder.appendChild(correct);
+                correct.appendChild(guess);
+            }
+        }
+
+        // Show lives
+        comments = function() {
+            showLives.innerHTML = "You have " + lives + " lives";
+            if (lives < 1) {
+                showLives.innerHTML = "Game Over";
+            }
+            for (var i = 0; i < guesses.length; i++) {
+                if (counter + space === guesses.length) {
+                    showLives.innerHTML = "You Win!";
+                }
+            }
+        }
+
+
+        // onclick
+        Function
+        check = function() {
+            list.onclick = function() {
+                var guess = (this.innerHTML);
+                this.setAttribute("class", "active");
+                this.onclick = null;
+                for (var i = 0; i < word.length; i++) {
+                    if (word[i] === guess) {
+                        guesses[i].innerHTML = guess;
+                        counter += 1;
+                    }
+                }
+                var j = (word.indexOf(guess));
+                if (j === -1) {
+                    lives -= 1;
+                    comments();
+                } else {
+                    comments();
+                }
+            }
+        }
+
+        /* Keyboard click function          never got to work :(  
+
+    check = function () {
+        var letters = {65:"a", 66:"b", 67:"c", 68:"d", 69:"e", 70:"f", 71:"g", 72:"h", 73:"i", 74:"j",
+                    75:"k", 76:"l", 77:"m", 78:"n", 79:"o", 80:"p", 81:"q", 82:"r", 83:"s", 84:"t",
+                    85:"u", 86:"v", 87:"w", 88:"x", 89:"y", 90:"z"};
+            list.onKeyup = function () {
+        } 
+      }
+  
+
+      */ ///////////
+
+        // game
+        play = function() {
+            categories = [
+                ["fallout", "overwatch", "mario", "skyrim", "monopoly", "javascript"],
+                ["fightclub", "zootopia", "gladiator", "tangled", "blow"],
+                ["dallas", "cowboys", "sooners", "magic", "capitols"]
+            ];
+
+            chosenCategory = categories[Math.floor(Math.random() * categories.length)];
+            word = chosenCategory[Math.floor(Math.random() * chosenCategory.length)];
+            //word = word.replace(/\s/g, "-"); // attempted to .replace string replace all - with space// where \s = empty space and      /g = global reference// didnt work :( 
+            console.log(word);
+            buttons();
+
+            guesses = [];
+            lives = 10;
+            counter = 0;
+            space = 0;
+            result();
+            comments();
+            selectCat();
+
+        }
+
+        play();
+
+
+        var catagoryIndex = categories.indexOf(chosenCategory);
+    };
+
+    // Reset
+
+    document.getElementById("reset").onclick = function() {
+        correct.parentNode.removeChild(correct);
+        letters.parentNode.removeChild(letters);
+        play();
+    }
+    </script>
+</body>
+
+</html>
